@@ -24,16 +24,15 @@ const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       </View>
       
       <Image
-        source={{ uri: '/assets/logosamhu.png' }} 
+        source={{ uri: '/assets/aplicaciomovil.png' }} 
         style={styles.image}
       />
       
-      <Text style={styles.title}>¡Bienvenido a SAMHÚ!</Text>
-      <Text style={styles.subtitle}>Donde todo es más eficiente.</Text>
+      <Text style={styles.title}>¡BIENVENIDO!</Text>
       
       <Button
-        title="Regístrate"
-        onPress={() => navigation.navigate('Registro')}
+        title="ACCEDER"
+        onPress={() => navigation.navigate('Formulario')}
         color="#afbf49" // Color del botón
       />
     </View>
@@ -65,9 +64,9 @@ const styles = StyleSheet.create({
     color: '#343a40',
   },
   image: {
-    width: 300,
+    width: 500,
     height: 200,
-    borderRadius: 10,
+    borderRadius: 40,
     marginBottom: 20,
   },
   title: {
