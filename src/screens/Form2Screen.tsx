@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, Alert } from 'react-native';
-import NumberInput from '../components/NumberInput'; 
+import CustomTextInput from '../components/TextInput';
 
-const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+const Form2Screen: React.FC<{ navigation: any }> = ({ navigation }) => {
     const [num1, setNum1] = useState('');
     const [num2, setNum2] = useState('');
     const [result, setResult] = useState<string | null>(null);
 
-    const handleRegister = () => {
+    const handleCalculate = () => {
         if (!num1 || !num2) {
             Alert.alert('Error', 'Todos los campos son requeridos');
             return;
@@ -21,39 +21,34 @@ const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             return;
         }
 
-        if (number2 === 0) {
-            if (number1 === 0) {
-                setResult('Indeterminación: 0/0');
-            } else {
-                setResult('Error: No se puede dividir para 0.');
-            }
-            return;
+        if (number1 === number2) {
+            setResult('Los números son iguales.');
+        } else {
+            const lesser = number1 < number2 ? number1 : number2;
+            setResult(`Número menor: ${lesser}`);
         }
-
-        const divisionResult = number1 / number2;
-        setResult(`Resultado: ${divisionResult}`);
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>INGRESA TUS NÚMEROS</Text>
-            
-            <NumberInput
+            <Text style={styles.title}>COMPARA TUS NÚMEROS</Text>
+
+            <CustomTextInput
                 value={num1}
                 onChange={setNum1}
                 placeholder="Primer número"
                 title="Número 1:"
             />
-            
-            <NumberInput
+
+            <CustomTextInput
                 value={num2}
                 onChange={setNum2}
                 placeholder="Segundo número"
                 title="Número 2:"
             />
-            
-            <Button title="DIVIDIR" onPress={handleRegister} color="#afbf49" />
-            
+
+            <Button title="COMPARAR" onPress={handleCalculate} color="#afbf49" />
+
             {result !== null && (
                 <Text style={styles.result}>{result}</Text>
             )}
@@ -82,4 +77,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RegisterScreen;
+export default Form2Screen;

@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, Image, Platform } from 'react-native';
+import { View, Text, StyleSheet, Image, Platform } from 'react-native';
+import Button from '../components/TouchableOpacity';
 
-// Función para obtener la fecha actual en formato legible
 const getCurrentDate = (): string => {
   const now = new Date();
   const options: Intl.DateTimeFormatOptions = {
@@ -14,7 +14,6 @@ const getCurrentDate = (): string => {
 };
 
 const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
-  //fecha actual usando la función personalizada
   const currentDate = getCurrentDate();
 
   return (
@@ -22,18 +21,31 @@ const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       <View style={styles.header}>
         <Text style={styles.date}>{currentDate}</Text>
       </View>
-      
-      <Image
-        source={{ uri: '/assets/aplicaciomovil.png' }} 
-        style={styles.image}
-      />
-      
+
       <Text style={styles.title}>¡BIENVENIDO!</Text>
-      
+
       <Button
-        title="ACCEDER"
-        onPress={() => navigation.navigate('Formulario')}
-        color="#afbf49" // Color del botón
+        title="IMAGEN 1"
+        onPress={() => navigation.navigate('Image1Screen')}
+        style={styles.button}
+      />
+
+      <Button
+        title="IMAGEN 2"
+        onPress={() => navigation.navigate('Image2Screen')}
+        style={styles.button}
+      />
+
+      <Button
+        title="MAYOR O IGUAL"
+        onPress={() => navigation.navigate('Form1Screen')}
+        style={styles.button}
+      />
+
+      <Button
+        title="MENOR O IGUAL"
+        onPress={() => navigation.navigate('Form2Screen')}
+        style={styles.button}
       />
     </View>
   );
@@ -44,8 +56,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#4c5776', // Color de fondo
-    padding: 16,
+    backgroundColor: '#4c5776',
+    padding: 18,
   },
   header: {
     position: 'absolute',
@@ -60,27 +72,18 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   date: {
-    fontSize: 16,
+    fontSize: 12,
     color: '#343a40',
   },
-  image: {
-    width: 500,
-    height: 200,
-    borderRadius: 40,
-    marginBottom: 20,
-  },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#11eac6',
   },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 20,
-    color: '#ffffff',
-    textAlign: 'center',
-    paddingHorizontal: 20,
+  button: {
+    marginVertical: 10,
+    fontWeight: 'bold',
   },
 });
 
