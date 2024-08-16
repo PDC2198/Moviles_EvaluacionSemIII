@@ -6,24 +6,11 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [currentDate, setCurrentDate] = useState<string>('');
-
-  // Hook para obtener la fecha actual al cargar el componente
-  useEffect(() => {
-    const date = new Date();
-    const options: Intl.DateTimeFormatOptions = {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-    };
-    setCurrentDate(date.toLocaleDateString('es-ES', options).replace(',', ' del')); // Formato de fecha en español
-  }, []);
 
   const handleLogin = () => {
     if (email && password) {
-      Alert.alert('Bienvenido al sistema', 'Has iniciado sesión correctamente.');
-      console.log('Email:', email);
-      console.log('Contraseña:', password);
+     Alert.alert('Bienvenido al sistema', 'Has iniciado sesión correctamente.');
+      navigation.navigate('PAQUETES');
     } else {
       Alert.alert('Error', 'Por favor, completa todos los campos.');
     }
@@ -31,9 +18,7 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>¡BIENVENIDO A SAMHÚ!</Text>
       <Text style={styles.title}>INICIAR SESIÓN</Text>
-      <Text style={styles.dateText}>{currentDate}</Text> {/* Fecha actual */}
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -60,8 +45,7 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           />
         </TouchableOpacity>
       </View>
-      <Button title="ENTRAR" onPress={handleLogin} color="#8a3a3a"/>
-
+      <Button title="ENTRAR" onPress={handleLogin} color="#8a3a3a" />
       <TouchableOpacity onPress={() => navigation.navigate('REGISTRO DE USUARIO')}>
         <Text style={styles.registerText}>¿No tienes una cuenta? Regístrate ya!</Text>
       </TouchableOpacity>
@@ -84,11 +68,7 @@ const styles = StyleSheet.create({
     color: '#11eac6',
     textAlign: 'center',
   },
-  dateText: {
-    fontSize: 13,
-    color: '#fff',
-    marginBottom: 20,
-  },
+
   input: {
     width: '80%',
     padding: 10,

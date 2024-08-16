@@ -1,36 +1,39 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const RegisterScreen: React.FC = () => {
+const RegisterScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [Nombre, setNombre] = useState('');
   const [Apellido, setApellido] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmarPassword, setconfirmarPassword] = useState('');
+  const [confirmarPassword, setConfirmarPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-  const [users, setUsers] = useState<{ Nombre: string; Apellido: string; email: string; password: string }[]>([]);
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (Nombre && Apellido && email && password) {
       if (password === confirmarPassword) {
-        // Crear un nuevo usuario
-        const newUser = { Nombre, Apellido, email, password };
-        
-        // Agregar el nuevo usuario al arreglo existente
-        setUsers((prevUsers) => [...prevUsers, newUser]);
-        
-        // Mostrar alerta de éxito en registro
-        Alert.alert('Registro exitoso', 'Sus datos han sido registrados con éxito.');
-        console.log('Usuarios Registrados:', [...users, newUser]); // Mostrar los usuarios registrados en la consola
-        
-        // Limpiar los campos
-        setNombre('');
-        setApellido('');
-        setEmail('');
-        setPassword('');
-        setconfirmarPassword('');
+        try {
+          // Guardar datos en AsyncStorage
+          await AsyncStorage.setItem('userEmail', email);
+          await AsyncStorage.setItem('userPassword', password);
+          Alert.alert('Registro exitoso', 'Tus datos han sido registrados con éxito.');
+          console.log('Usuario Registrado:', { Nombre, Apellido, email, password });
+
+          // Limpiar los campos
+          setNombre('');
+          setApellido('');
+          setEmail('');
+          setPassword('');
+          setConfirmarPassword('');
+
+          // Navegar a la pantalla de inicio de sesión
+          navigation.navigate('INICIO DE SESIÓN');
+        } catch (error) {
+          Alert.alert('Error', 'No se pudo registrar el usuario.');
+        }
       } else {
         Alert.alert('Error', 'Las contraseñas no coinciden.');
       }
@@ -86,7 +89,7 @@ const RegisterScreen: React.FC = () => {
           placeholder="Confirmar contraseña"
           secureTextEntry={!confirmPasswordVisible}
           value={confirmarPassword}
-          onChangeText={setconfirmarPassword}
+          onChangeText={setConfirmarPassword}
         />
         <TouchableOpacity
           style={styles.eyeIcon}
