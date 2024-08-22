@@ -16,13 +16,12 @@ const WelcomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   }, []);
 
   const handleAccess = () => {
-    navigation.navigate('INICIO DE SESIÓN');
+    navigation.navigate('FORMULARIO');
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>¡BIENVENIDO A SAMHÚ!</Text>
-      <Text style={styles.subtitle}>Donde todo es más rápido.</Text>
+      <Text style={styles.title}>¡BIENVENIDO!</Text>
       <Text style={styles.dateText}>{currentDate}</Text> {/* Fecha actual */}
       <TouchableOpacity style={styles.button} onPress={handleAccess}>
         <Text style={styles.buttonText}>ACCEDER</Text>
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
     padding: 18,
   },
   title: {
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#11eac6',

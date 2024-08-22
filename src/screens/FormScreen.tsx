@@ -1,16 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
+const FormScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [comentario, setComentario] = useState('');
 
-  const handleLogin = () => {
-    if (email && password) {
-     Alert.alert('Bienvenido al sistema', 'Has iniciado sesión correctamente.');
-      navigation.navigate('PAQUETES');
+  const handleForm = () => {
+    if (email && password && comentario) {
+      // Mostrar los datos en la consola
+      console.log('Email:', email);
+      console.log('Contraseña:', password);
+      console.log('Comentario:', comentario);
+
+      // Navega a la pantalla del feedback y pasar los datos como parámetros
+      navigation.navigate('FEEDBACK', { email, password, comentario });
     } else {
       Alert.alert('Error', 'Por favor, completa todos los campos.');
     }
@@ -18,7 +24,7 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>INICIAR SESIÓN</Text>
+      <Text style={styles.title}>FORMULARIO</Text>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -45,10 +51,14 @@ const LoginScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           />
         </TouchableOpacity>
       </View>
-      <Button title="ENTRAR" onPress={handleLogin} color="#8a3a3a" />
-      <TouchableOpacity onPress={() => navigation.navigate('REGISTRO DE USUARIO')}>
-        <Text style={styles.registerText}>¿No tienes una cuenta? Regístrate ya!</Text>
-      </TouchableOpacity>
+      <TextInput
+        style={styles.input}
+        placeholder="Comentario"
+        value={comentario}
+        onChangeText={setComentario}
+      />
+
+      <Button title="ENVIAR FEEDBACK" onPress={handleForm} color="#8a3a3a" />
     </View>
   );
 };
@@ -68,7 +78,6 @@ const styles = StyleSheet.create({
     color: '#11eac6',
     textAlign: 'center',
   },
-
   input: {
     width: '80%',
     padding: 10,
@@ -96,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginScreen;
+export default FormScreen;
